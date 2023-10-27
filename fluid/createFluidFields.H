@@ -67,6 +67,8 @@ PtrList<IOMRFZoneList> MRFfluid(fluidRegions.size());
 List<scalar> cumulativeContErrFluid(fluidRegions.size());
 //alphaPhiFluid for createAlphaFluxes
 PtrList<surfaceScalarField> alphaPhiFluid(fluidRegions.size());
+// MULES compressed flux if needed
+PtrList<surfaceScalarField> alphaPhiUnFluid(fluidRegions.size());
 
 //- populate fluid field pointer lists
 forAll(fluidRegions, i)
@@ -435,7 +437,24 @@ forAll(fluidRegions, i)
             phiFluid[i]*fvc::interpolate(thermoFluid[i].alpha1())
         )
     );
-
+    
+    alphaPhiUnFluid.set
+    (
+      i,
+      new surfaceScalarField
+      (
+        IOobject
+        (
+          "alphaPhiUn",
+          runTime.timeName(),
+          fluidRegions[i],
+          IOobject::NO_READ,
+          IOobject::NO_WRITE
+        ),
+        fluidRegions[i],
+        dimensionedScalar(phiFluid[i].dimensions(),Zero)
+      )
+    );
 
 
 
