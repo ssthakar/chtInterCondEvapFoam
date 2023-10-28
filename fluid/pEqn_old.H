@@ -1,41 +1,60 @@
+// done
 {
-    volScalarField rAU("rAU", 1.0/UEqn.A());
+    
+    if (correctPhi)
+    {
+        rAU = 1.0/UEqn.A(); // code breaks down here when using adaptive mesh refinement
+    }
+    else
+    {
+        rAU = 1.0/UEqn.A();
+    }
+
     surfaceScalarField rAUf("rAUf", fvc::interpolate(rAU));
-    volVectorField HbyA(constrainHbyA(rAU*UEqn.H(), U, p_rgh));
+
+    volVectorField HbyA("HbyA", U);
+    HbyA = rAU*UEqn.H();
+
     surfaceScalarField phiHbyA
     (
         "phiHbyA",
         (fvc::interpolate(HbyA) & mesh.Sf())
       + fvc::interpolate(rho*rAU)*fvc::ddtCorr(U, phi)
     );
-    adjustPhi(phiHbyA, U, p_rgh);
+
+    if (p_rgh.needReference())
+    {
+        fvc::makeRelative(phiHbyA, U);
+        adjustPhi(phiHbyA, U, p_rgh);
+        fvc::makeAbsolute(phiHbyA, U);
+    }
 
     surfaceScalarField phig
     (
         (
-            interface.surfaceTensionForce()
+            fluid.surfaceTensionForce()
           - ghf*fvc::snGrad(rho)
         )*rAUf*mesh.magSf()
     );
 
     phiHbyA += phig;
 
-    // Update the pressure BCs to ensure flux consistency
+    // Update the fixedFluxPressure BCs to ensure flux consistency
     constrainPressure(p_rgh, U, phiHbyA, rAUf);
-
-    Pair<tmp<volScalarField>> vDot = mixture->vDot();
-    const volScalarField& vDotc = vDot[0]();
-    const volScalarField& vDotv = vDot[1]();
 
     while (pimple.correctNonOrthogonal())
     {
+
         fvScalarMatrix p_rghEqn
         (
             fvc::div(phiHbyA)
           - fvm::laplacian(rAUf, p_rgh)
-          ==
-            vDotv + vDotc
         );
+
+        if (fluid.includeVolChange())
+        {
+            p_rghEqn += fluid.volTransfer(p_rgh);
+        }
 
         p_rghEqn.setReference(pRefCell, pRefValue);
 
@@ -45,13 +64,25 @@
         {
             phi = phiHbyA + p_rghEqn.flux();
 
+            p_rgh.relax();
+
             U = HbyA + rAU*fvc::reconstruct((phig + p_rghEqn.flux())/rAUf);
+
             U.correctBoundaryConditions();
             fvOptions.correct(U);
+            K = 0.5*magSqr(U);
         }
     }
 
-    p = p_rgh + rho*gh;
+    #include "continuityError.H"
+
+    // Correct Uf if the mesh is moving
+    fvc::correctUf(Uf, U, phi);
+
+    // Make the fluxes relative to the mesh motion
+    fvc::makeRelative(phi, U);
+
+    p == p_rgh + rho*gh;
 
     if (p_rgh.needReference())
     {
@@ -63,4 +94,9 @@
         );
         p_rgh = p - rho*gh;
     }
+
+    // if (!correctPhi)
+    // {
+    //     rAU.clear();
+    // }
 }

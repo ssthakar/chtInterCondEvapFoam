@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
             }
         }
 
-        // --- PIMPLE loop
+        // --- PIMPLE loop same as while(pimple.loop())
         for (int oCorr=0; oCorr<nOuterCorr; ++oCorr)
         {   
             if(debug)

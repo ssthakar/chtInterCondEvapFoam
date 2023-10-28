@@ -2,27 +2,21 @@ if (finalIter)
 {
     mesh.data::add("finalIteration", true);
 }
-// we don't really need this as fluid region and solid region are closely coupled
-//  change in temp field in solid region does effect the fluid region
+
 if (frozenFlow)
 {
     #include "TEqn.H"
-
 }
-
-
-
-
-
-
 // correct for phase change and other stuff in the first pimple outer loop
 if(oCorr == 0)
 {
   if(debug)
   {
-   Info << " before pimple.loop, after runTime.run"<<endl;
+    Info << " correcting for phase change and MULES"<<endl;
   }
-
+  fluid.correctMassSources(T);
+  fluid.solve();
+  rho = fluid.rho();
 }
 
 if(debug)

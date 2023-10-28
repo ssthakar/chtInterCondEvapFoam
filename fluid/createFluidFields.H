@@ -6,15 +6,15 @@
 
 
 // p_rgh
-PtrList<volScalarField> p_rghFluid(fluidRegions.size());
+PtrList<volScalarField> p_rghFluid(fluidRegions.size()); //done 
 //- U
-PtrList<volVectorField> UFluid(fluidRegions.size());
+PtrList<volVectorField> UFluid(fluidRegions.size()); //done 
 // createPhi from interCondFoam
-PtrList<surfaceScalarField> phiFluid(fluidRegions.size());
+PtrList<surfaceScalarField> phiFluid(fluidRegions.size()); //done 
 // e based Thermo for fluidRegions
-PtrList<twoPhaseMixtureEThermo> thermoFluid(fluidRegions.size());
+PtrList<twoPhaseMixtureEThermo> thermoFluid(fluidRegions.size()); //done 
 // Twophasemixture for fluid regions
-PtrList<temperaturePhaseChangeTwoPhaseMixture> mixtureFluid(fluidRegions.size());
+PtrList<temperaturePhaseChangeTwoPhaseMixture> mixtureFluid(fluidRegions.size()); //done 
 //rho1 and rho2
 PtrList<dimensionedScalar> rho1Fluid(fluidRegions.size());
 PtrList<dimensionedScalar> rho2Fluid(fluidRegions.size());
@@ -25,7 +25,7 @@ PtrList<interfaceProperties> interfaceFluid(fluidRegions.size());
 // turbulence model for fluid regions
 PtrList<incompressible::turbulenceModel> turbFluid(fluidRegions.size());
 //KappaEff for fluid regions 
-PtrList<volScalarField> kappaEffFluid(fluidRegions.size());
+PtrList<volScalarField> kappaEffFluid(fluidRegions.size()); // what do?? here 
 //- gh 
 PtrList<volScalarField> ghFluid(fluidRegions.size());
 //- ghRef
@@ -206,6 +206,20 @@ forAll(fluidRegions, i)
         thermoFluid[i].transportPropertiesDict()
       )
     );
+
+
+    Info<<"adding to turbulence PtrList\n"<<endl;
+    turbFluid.set
+    (
+      i,
+      incompressible::turbulenceModel::New
+      (
+        UFluid[i],
+        phiFluid[i],
+        thermoFluid[i]
+      ).ptr()
+    );
+    turbFluid[i].validate()
     // Info<< "    Adding to TFluid\n" << endl;
     // TFluid.set
     // (

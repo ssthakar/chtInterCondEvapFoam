@@ -1,19 +1,27 @@
     dynamicFvMesh& mesh = fluidRegions[i];
-    multiphaseSystem& fluid  = phaseSystemFluid[i];
-    surfaceScalarField& phi = fluid.phi();
+    surfaceScalarField& phi = phiFluid[i];// changed
     volScalarField& p_rgh = p_rghFluid[i];
+    twoPhaseMixtureEthermo& thermo = thermoFluid[i]; // added 
+    temperaturePhaseChangeTwoPhaseMixture&  mixture = mixtureFluid[i]; // added
+    interfaceProperties& interface = interfaceFluid[i]; //added
+    dimensionedScalar& rho1 = rho1Fluid[i]; //added
+    dimensionedScalar& rho1 = rho2Fluid[i]; //added
+    dimensionedScalar& Prt = PrtFluid[i]; // added
+    surfaceScalarField& alphaPhi10 = alphaPhiFluid[i]; // added
+    surfaceScalarField& alphaPhiUn = alphaPhiUnFluid[i]; // added
+    tmp<surfaceScalarField> talphaPhi1Corr0; //added
     volScalarField& rho = rhoFluid[i];
-    volScalarField& p = pFluid[i];
+    volScalarField& p = thermoFluid[i].p(); // changed
     volVectorField& U = UFluid[i];
-    volScalarField& T = TFluid[i];
+    volScalarField& T = thermoFluid[i].T(); // should i put it in createFields??
     volScalarField& rhoCp = rhoCpFluid[i];
-    surfaceScalarField& rhoPhi = fluid.rhoPhi();
+    surfaceScalarField& rhoPhi = rhoPhiFluid[i];
     volScalarField& gh = ghFluid[i];
     surfaceScalarField& ghf = ghfFluid[i];
     const dimensionedScalar& ghRef = ghRefFluid[i];
     volScalarField& K = KFluid[i];
     fv::options &fvOptions = fvOptionsFluid[i];
-    CompressibleTurbulenceModel<multiphaseSystem> & turbulence = turbFluid[i];
+    incompressible::turbulenceModel & turbulence = turbFluid[i];// changed
     scalar& cumulativeContErr = cumulativeContErrFluid[i];
     //bool& correctPhi = correctPhiFluid[i];
     const dimensionedScalar initialMass
@@ -45,7 +53,7 @@
     (
         pimple.dict().getOrDefault("moveMeshOuterCorrectors", false)
     );
-    
+    // this needs to be changed
     volScalarField rAU
     (
       IOobject
@@ -59,7 +67,9 @@
       fluidRegions[i],
       dimensionedScalar("rAU", dimTime/dimDensity, 1) 
     );
-      
+    
+    IOMRFZoneList& MRF = MRFfluid[i]; // added
+    // keep this the same as we dont' need to change anything here
     autoPtr<surfaceVectorField> Uf;
 
     if (fluidRegions[i].dynamic())
