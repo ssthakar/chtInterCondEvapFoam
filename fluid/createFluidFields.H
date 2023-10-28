@@ -101,24 +101,6 @@ forAll(fluidRegions, i)
         )
     );
 
-    Info<<"      adding to face flux field phi\n"<<endl;
-    phiFluid.set
-    (
-      i,
-      new surfaceScalarField
-      (
-        IOobject
-        (
-          "phi",
-          runTime.timeName(),
-          fluidRegions[i],
-          IOobject::READ_IF_PRESENT,
-          IOobject::AUTO_WRITE
-        ),
-        fvc::flux(UFluid[i])
-      )
-    );
-
 
     Info<< "    Adding to UFluid\n" << endl;
     UFluid.set
@@ -137,6 +119,26 @@ forAll(fluidRegions, i)
             fluidRegions[i]
         )
     );
+
+
+    Info<<"      adding to face flux field phi\n"<<endl;
+    phiFluid.set
+    (
+      i,
+      new surfaceScalarField
+      (
+        IOobject
+        (
+          "phi",
+          runTime.timeName(),
+          fluidRegions[i],
+          IOobject::READ_IF_PRESENT,
+          IOobject::AUTO_WRITE
+        ),
+        fvc::flux(UFluid[i])
+      )
+    );
+
     
     // add thermo to pointer list
     Info<<"   adding to e based Thermo\n"<<endl;

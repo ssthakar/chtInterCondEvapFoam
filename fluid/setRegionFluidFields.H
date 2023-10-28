@@ -4,8 +4,8 @@
     twoPhaseMixtureEThermo& thermo = thermoFluid[i]; // added 
     temperaturePhaseChangeTwoPhaseMixture&  mixture = mixtureFluid[i]; // added
     interfaceProperties& interface = interfaceFluid[i]; //added
-    dimensionedScalar& rho1 = rho1Fluid[i]; //added
-    dimensionedScalar& rho2 = rho2Fluid[i]; //added
+    const dimensionedScalar& rho1 = thermoFluid[i].rho1(); //added
+    const dimensionedScalar& rho2 = thermoFluid[i].rho2(); //added
     dimensionedScalar& Prt = PrtFluid[i]; // added
     volScalarField& alpha1 = thermoFluid[i].alpha1();
     volScalarField& alpha2 = thermoFluid[i].alpha2();
