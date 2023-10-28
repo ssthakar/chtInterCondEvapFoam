@@ -1,18 +1,9 @@
-interPhaseChangeFoam = $(FOAM_SOLVERS)/multiphase/interPhaseChangeFoam
-interFoam = $(FOAM_SOLVERS)/multiphase/interFoam
-VoF = $(FOAM_SOLVERS)/multiphase/VoF
-interCondEvapFoam = $(FOAM_SOLVERS)/multiphase/interCondensatingEvaporatingFoam
 mixture = $(FOAM_SOLVERS)/multiphase/interCondensatingEvaporatingFoam/temperaturePhaseChangeTwoPhaseMixtures/lnInclude
-
-
-EXE_INC = \   
-    -I$(interPhaseChangeFoam) \
-    -I$(interFoam) \
-    -I$(VoF) \
+EXE_INC = -ggdb3 -DFULLDEBUG \
+    -I./fluid/VOF \
     -I./fluid \
     -I./solid \
     -I./include \
-    -I$(interCondEvapFoam) \
     -I$(mixture) \
     -I$(LIB_SRC)/dynamicFvMesh/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \

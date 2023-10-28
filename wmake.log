@@ -1,50 +1,16 @@
-Making dependency list for source file chtInterCondEvapFoam.C
-g++ -std=c++11 -m64 -pthread -DOPENFOAM=2112 -DWM_DP -DWM_LABEL_SIZE=32 -Wall -Wextra -Wold-style-cast -Wnon-virtual-dtor -Wno-unused-parameter -Wno-invalid-offsetof -Wno-attributes -Wno-unknown-pragmas  -O3  -DNoRepository -ftemplate-depth-100 -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interPhaseChangeFoam -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interFoam -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/VoF -I./fluid -I./solid -I./include -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interCondensatingEvaporatingFoam -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interCondensatingEvaporatingFoam/temperaturePhaseChangeTwoPhaseMixtures/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/dynamicFvMesh/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/meshTools/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/fvOptions/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/sampling/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/finiteVolume/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/incompressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/basic/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/twoPhaseMixture/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/solidThermo/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/radiation/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/turbulenceModels/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/incompressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/regionModels/regionModel/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/compressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/compressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/interfaceProperties/lnInclude  -iquote. -IlnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/OpenFOAM/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/OSspecific/POSIX/lnInclude   -fPIC -c chtInterCondEvapFoam.C -o Make/linux64GccDPInt32Opt/chtInterCondEvapFoam.o
+g++ -std=c++11 -m64 -pthread -DOPENFOAM=2112 -DWM_DP -DWM_LABEL_SIZE=32 -Wall -Wextra -Wold-style-cast -Wnon-virtual-dtor -Wno-unused-parameter -Wno-invalid-offsetof -Wno-attributes -Wno-unknown-pragmas  -O3  -DNoRepository -ftemplate-depth-100 -ggdb3 -DFULLDEBUG -I./fluid/VOF -I./fluid -I./solid -I./include -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interCondensatingEvaporatingFoam/temperaturePhaseChangeTwoPhaseMixtures/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/dynamicFvMesh/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/meshTools/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/fvOptions/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/sampling/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/finiteVolume/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/incompressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/basic/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/twoPhaseMixture/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/solidThermo/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/radiation/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/turbulenceModels/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/incompressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/regionModels/regionModel/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/compressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/compressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/interfaceProperties/lnInclude  -iquote. -IlnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/OpenFOAM/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/OSspecific/POSIX/lnInclude   -fPIC -c chtInterCondEvapFoam.C -o Make/linux64GccDPInt32Opt/chtInterCondEvapFoam.o
 In file included from ./createFields.H:2,
                  from /home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/OpenFOAM/lnInclude/postProcess.H:147,
                  from chtInterCondEvapFoam.C:79:
 ./fluid/createFluidFields.H: In function ‘int main(int, char**)’:
-./fluid/createFluidFields.H:485:11: error: ‘fluidRegion’ was not declared in this scope; did you mean ‘fluidRegions’?
-  485 |           fluidRegion[i],
-      |           ^~~~~~~~~~~
-      |           fluidRegions
 ./fluid/createFluidFields.H:445:16: warning: unused variable ‘alphaRestart’ [-Wunused-variable]
   445 |     const bool alphaRestart =
       |                ^~~~~~~~~~~~
 In file included from createFields.H:2,
                  from chtInterCondEvapFoam.C:84:
-./fluid/createFluidFields.H:485:11: error: ‘fluidRegion’ was not declared in this scope; did you mean ‘fluidRegions’?
-  485 |           fluidRegion[i],
-      |           ^~~~~~~~~~~
-      |           fluidRegions
 ./fluid/createFluidFields.H:445:16: warning: unused variable ‘alphaRestart’ [-Wunused-variable]
   445 |     const bool alphaRestart =
       |                ^~~~~~~~~~~~
-In file included from /home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interPhaseChangeFoam/alphaEqnSubCycle.H:40,
-                 from ./fluid/solveFluid.H:74,
-                 from chtInterCondEvapFoam.C:126:
-/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interPhaseChangeFoam/alphaEqn.H:8:16: error: base operand of ‘->’ has non-pointer type ‘Foam::temperaturePhaseChangeTwoPhaseMixture’
-    8 |         mixture->vDotAlphal();
-      |                ^~
-In file included from /home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interPhaseChangeFoam/alphaEqnSubCycle.H:48,
-                 from ./fluid/solveFluid.H:74,
-                 from chtInterCondEvapFoam.C:126:
-/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interPhaseChangeFoam/alphaEqn.H:8:16: error: base operand of ‘->’ has non-pointer type ‘Foam::temperaturePhaseChangeTwoPhaseMixture’
-    8 |         mixture->vDotAlphal();
-      |                ^~
-In file included from ./fluid/solveFluid.H:77,
-                 from chtInterCondEvapFoam.C:126:
-./fluid/UEqn.H:7:19: error: base operand of ‘->’ has non-pointer type ‘Foam::incompressible::turbulenceModel’ {aka ‘Foam::IncompressibleTurbulenceModel<Foam::transportModel>’}
-    7 |       + turbulence->divDevRhoReff(rho, U)
-      |                   ^~
-./fluid/UEqn.H:25:29: error: ‘class Foam::temperaturePhaseChangeTwoPhaseMixture’ has no member named ‘surfaceTensionForce’
-   25 |                     mixture.surfaceTensionForce()
-      |                             ^~~~~~~~~~~~~~~~~~~
-In file included from ./fluid/solveFluid.H:86,
-                 from chtInterCondEvapFoam.C:126:
-./fluid/pEqn.H:26:45: error: base operand of ‘->’ has non-pointer type ‘Foam::temperaturePhaseChangeTwoPhaseMixture’
-   26 |     Pair<tmp<volScalarField>> vDot = mixture->vDot();
-      |                                             ^~
 In file included from chtInterCondEvapFoam.C:124:
 ./fluid/setRegionFluidFields.H:13:25: warning: unused variable ‘alphaPhiUn’ [-Wunused-variable]
    13 |     surfaceScalarField& alphaPhiUn = alphaPhiUnFluid[i]; // added
@@ -59,8 +25,18 @@ In file included from chtInterCondEvapFoam.C:125:
 ./fluid/readFluidMultiRegionPIMPLEControls.H:10:16: warning: unused variable ‘momentumPredictor’ [-Wunused-variable]
    10 |     const bool momentumPredictor =
       |                ^~~~~~~~~~~~~~~~~
+In file included from ./fluid/solveFluid.H:73,
+                 from chtInterCondEvapFoam.C:126:
+/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/finiteVolume/lnInclude/alphaControls.H:12:6: warning: unused variable ‘alphaApplyPrevCorr’ [-Wunused-variable]
+   12 | bool alphaApplyPrevCorr
+      |      ^~~~~~~~~~~~~~~~~~
+/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/finiteVolume/lnInclude/alphaControls.H:24:8: warning: unused variable ‘scAlpha’ [-Wunused-variable]
+   24 | scalar scAlpha
+      |        ^~~~~~~
 In file included from chtInterCondEvapFoam.C:87:
 ./fluid/multiPhaseMultiRegionCourantNo.H:37:8: warning: unused variable ‘maxAlphaCo’ [-Wunused-variable]
    37 | scalar maxAlphaCo
       |        ^~~~~~~~~~
-make: *** [/home/kazeshini/OpenFOAM/OpenFOAM-v2112/wmake/rules/General/transform:35: Make/linux64GccDPInt32Opt/chtInterCondEvapFoam.o] Error 1
+g++ -std=c++11 -m64 -pthread -DOPENFOAM=2112 -DWM_DP -DWM_LABEL_SIZE=32 -Wall -Wextra -Wold-style-cast -Wnon-virtual-dtor -Wno-unused-parameter -Wno-invalid-offsetof -Wno-attributes -Wno-unknown-pragmas  -O3  -DNoRepository -ftemplate-depth-100 -ggdb3 -DFULLDEBUG -I./fluid/VOF -I./fluid -I./solid -I./include -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/applications/solvers/multiphase/interCondensatingEvaporatingFoam/temperaturePhaseChangeTwoPhaseMixtures/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/dynamicFvMesh/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/meshTools/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/fvOptions/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/sampling/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/finiteVolume/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/incompressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/basic/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/twoPhaseMixture/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/solidThermo/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/thermophysicalModels/radiation/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/turbulenceModels/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/incompressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/regionModels/regionModel/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/TurbulenceModels/compressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/compressible/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/transportModels/interfaceProperties/lnInclude  -iquote. -IlnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/OpenFOAM/lnInclude -I/home/kazeshini/OpenFOAM/OpenFOAM-v2112/src/OSspecific/POSIX/lnInclude   -fPIC -Xlinker --add-needed -Xlinker --no-as-needed  Make/linux64GccDPInt32Opt/solid/solidRegionDiffNo.o Make/linux64GccDPInt32Opt/fluid/multiCourantNo.o Make/linux64GccDPInt32Opt/chtInterCondEvapFoam.o -L/home/kazeshini/OpenFOAM/OpenFOAM-v2112/platforms/linux64GccDPInt32Opt/lib \
+    -lfiniteVolume -lfvOptions -lmeshTools -lsampling -lcompressibleTransportModels -ldynamicFvMesh -lphaseTemperatureChangeTwoPhaseMixtures -ltwoPhaseMixture -linterfaceProperties -ltwoPhaseProperties -lturbulenceModels -lincompressibleTurbulenceModels -lincompressibleTransportModels -lfluidThermophysicalModels -lsolidThermo -lradiationModels -lregionModels -lsolidSpecie  -lOpenFOAM -ldl  \
+     -lm -o /home/kazeshini/OpenFOAM/kazeshini-v2112/platforms/linux64GccDPInt32Opt/bin/chtInterCondEvapFoam
