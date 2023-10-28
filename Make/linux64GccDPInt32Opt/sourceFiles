@@ -1,0 +1,6 @@
+SOURCE = \
+solid/solidRegionDiffNo.C \
+fluid/multiCourantNo.C \
+chtInterCondEvapFoam.C \
+
+# sources

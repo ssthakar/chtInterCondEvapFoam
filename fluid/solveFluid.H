@@ -11,18 +11,10 @@ if (frozenFlow)
 }
 
 
-
-
-
-
 // correct for phase change and other stuff in the first pimple outer loop
 if(oCorr == 0)
 {
-  if(debug)
-  {
-   Info << " before pimple.loop, after runTime.run"<<endl;
-  }
-
+  volScalarField divU("divU", fvc::div(fvc::absolute(phi, U)));
 }
 
 if(debug)
@@ -44,7 +36,7 @@ if(oCorr == 0 || moveMeshOuterCorrectors)
   {
     gh = (g & mesh.C()) - ghRef; 
     ghf = (g & mesh.Cf()) - ghRef;
-
+    MRF.update();//added
     if (correctPhi)
     {
         // Calculate absolute flux
@@ -54,6 +46,10 @@ if(oCorr == 0 || moveMeshOuterCorrectors)
           
         // Make the flux relative to the mesh motion
         fvc::makeRelative(phi, U);
+    }
+    if(checkMeshCourantNo)
+    {
+      #include "meshCourantNo.H" // added
     }
   }
 }
@@ -72,8 +68,13 @@ if(debug)
   Info << "governing Equations being solved"<<endl;
 }
   // solve the Equations
+
+mixture.correct();
+#include "alphaControls.H" //add actual file instead of linking vof??
+#include "alphaEqnSubCycle.H" // same as above??1
+interface.correct();
+
 #include "UEqn.H"
-#include "YEqns.H"
 #include "TEqn.H" 
 //- pressure corrector loop
 for(int corr=0;corr<nCorr;corr++)
@@ -90,7 +91,7 @@ turbulence.correct();
 if (finalIter)
 {
     mesh.data::remove("finalIteration");
-    rho = fluid.rho();
+    rho = alpha1*rho1+alpha2*rho2; //update rho
 
 }
 

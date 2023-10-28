@@ -31,13 +31,13 @@ Foam::Pair<Foam::scalar> Foam::multiCourantNoPair
     const fvMesh& mesh,
     const Time& runTime,
     const surfaceScalarField& phi,
-    const multiphaseSystem& fluid
+    const interfaceProperties& interface
 )
 {
     scalarField sumPhi
     (
         fvc::surfaceSum(mag(phi))().internalField()
-    );
+    ); // do not change
 
     scalar CoNum = 0.5*gMax(sumPhi/mesh.V().field())*runTime.deltaTValue(); // vel co Num
 
@@ -50,7 +50,7 @@ Foam::Pair<Foam::scalar> Foam::multiCourantNoPair
 
     scalarField sumPhiAlpha
     (
-        fluid.nearInterface()().primitiveField()
+        interface.nearInterface()().primitiveField()
        *fvc::surfaceSum(mag(phi))().primitiveField()
     );
 
@@ -70,63 +70,6 @@ Foam::Pair<Foam::scalar> Foam::multiCourantNoPair
 
     return CoNums;
 }
-// returns a field containing all time step deciding numbers
-// taken from henning scheuffler's code and modified to suit my code
-Foam::Field<Foam::scalar> Foam::multiCourantNo
-(
-    const fvMesh& mesh,
-    const Time& runTime,
-    const surfaceScalarField& phi,
-    const multiphaseSystem& fluid
-)
-{
-    scalarField sumPhi
-    (
-      fvc::surfaceSum(mag(phi))().internalField()
-    );
-    // vel courant number
-    scalar CoNum = 0.5*gMax(sumPhi/mesh.V().field())*runTime.deltaTValue();
 
-    scalar meanCoNum =
-        0.5*(gSum(sumPhi)/gSum(mesh.V().field()))*runTime.deltaTValue();
-
-    // interface courant number
-    scalar alphaCoNum = 0.0;
-    scalar meanAlphaCoNum = 0.0;
-  
-    scalar ddtAlphaNum = 0.0;
-    scalar DiNumFluid = 0.0;
-
-    scalarField sumPhiAlpha
-    (
-        fluid.nearInterface()().primitiveField()
-       *fvc::surfaceSum(mag(phi))().primitiveField()
-    );
-
-    alphaCoNum = 0.5*gMax(sumPhiAlpha/mesh.V().field())*runTime.deltaTValue();
-
-    meanAlphaCoNum =
-        0.5*(gSum(sumPhiAlpha)/gSum(mesh.V().field()))*runTime.deltaTValue();
-
-
-    ddtAlphaNum = fluid.ddtAlphaMax().value()*runTime.deltaTValue();
-
-    DiNumFluid = fluid.maxDiffNo();
-    // info out for interface courant number
-    Info<< "Interface Courant Number mean: " << meanAlphaCoNum
-        << " max: " << alphaCoNum << endl;
-    // info out for fluid courant number
-    Info<< "Region: " << mesh.name() << " Courant Number mean: " << meanCoNum
-        << " max: " << CoNum << endl;
-  
-    // populate the field
-    Field<scalar> CoNums(4);
-    CoNums[0] = CoNum;
-    CoNums[1] = alphaCoNum;
-    CoNums[2] = ddtAlphaNum;
-    CoNums[3] = DiNumFluid;
-    // return the field
-    return CoNums;
-}
 
 // ************************************************************************* //

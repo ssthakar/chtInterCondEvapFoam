@@ -1,12 +1,14 @@
     dynamicFvMesh& mesh = fluidRegions[i];
     surfaceScalarField& phi = phiFluid[i];// changed
     volScalarField& p_rgh = p_rghFluid[i];
-    twoPhaseMixtureEthermo& thermo = thermoFluid[i]; // added 
+    twoPhaseMixtureEThermo& thermo = thermoFluid[i]; // added 
     temperaturePhaseChangeTwoPhaseMixture&  mixture = mixtureFluid[i]; // added
     interfaceProperties& interface = interfaceFluid[i]; //added
     dimensionedScalar& rho1 = rho1Fluid[i]; //added
-    dimensionedScalar& rho1 = rho2Fluid[i]; //added
+    dimensionedScalar& rho2 = rho2Fluid[i]; //added
     dimensionedScalar& Prt = PrtFluid[i]; // added
+    volScalarField& alpha1 = thermoFluid[i].alpha1();
+    volScalarField& alpha2 = thermoFluid[i].alpha2();
     surfaceScalarField& alphaPhi10 = alphaPhiFluid[i]; // added
     surfaceScalarField& alphaPhiUn = alphaPhiUnFluid[i]; // added
     tmp<surfaceScalarField> talphaPhi1Corr0; //added
@@ -21,6 +23,7 @@
     const dimensionedScalar& ghRef = ghRefFluid[i];
     volScalarField& K = KFluid[i];
     fv::options &fvOptions = fvOptionsFluid[i];
+    volScalarField& kappaEff = kappaEffFluid[i];
     incompressible::turbulenceModel & turbulence = turbFluid[i];// changed
     scalar& cumulativeContErr = cumulativeContErrFluid[i];
     //bool& correctPhi = correctPhiFluid[i];

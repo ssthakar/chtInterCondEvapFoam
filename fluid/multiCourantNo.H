@@ -31,8 +31,8 @@ Description
 #define multiCourantNo_H
 
 #include "fvMesh.H"
-#include "multiphaseSystem.H"
-// #include "mutiphaseSystems.H"
+#include "interfaceProperties.H" //added
+// #include "mutiphaseSystems.H" removed
 
 // add the function directly to namespace Foam so setMultiRegionDeltaT has access to it
 namespace Foam
@@ -44,18 +44,9 @@ namespace Foam
         const fvMesh& mesh,
         const Time& runTime,
         const surfaceScalarField& phi,
-        const multiphaseSystem& fluid
+        const interfaceProperties& interface
     );
     
-    // could pass just the phase system arg and init phi() from it in the function
-
-    Field<scalar> multiCourantNo
-    (
-        const fvMesh& mesh,
-        const Time& runTime,
-        const surfaceScalarField& phi,
-        const multiphaseSystem& fluid
-    );
 }
 
 #endif

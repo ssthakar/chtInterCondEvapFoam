@@ -114,9 +114,9 @@ forAll(fluidRegions, i)
           fluidRegions[i],
           IOobject::READ_IF_PRESENT,
           IOobject::AUTO_WRITE
-        )
-      ),
-      fvc::flux(UFluid[i])
+        ),
+        fvc::flux(UFluid[i])
+      )
     );
 
 
@@ -154,7 +154,7 @@ forAll(fluidRegions, i)
     mixtureFluid.set
     (
       i,
-      temperaturePhaseChangeTwoPhaseMixture::New(thermoFluid[i].ptr(), fluidRegions[i].ptr())
+      temperaturePhaseChangeTwoPhaseMixture::New(thermoFluid[i], fluidRegions[i])
     );
 
     Info<<"     Adding rhoFluid\n" << endl;
@@ -219,7 +219,7 @@ forAll(fluidRegions, i)
         thermoFluid[i]
       ).ptr()
     );
-    turbFluid[i].validate()
+    turbFluid[i].validate();
     // Info<< "    Adding to TFluid\n" << endl;
     // TFluid.set
     // (
@@ -370,6 +370,7 @@ forAll(fluidRegions, i)
     //set turbulent Prandtl number
     PrtFluid.set
     (
+      i,
       new dimensionedScalar
       (
         "Prt",
@@ -420,13 +421,16 @@ forAll(fluidRegions, i)
     
         Info<< "    Correcting initialMassFluid\n" << endl;
     initialMassFluid[i] =
-        fvc::domainIntegrate(phaseSystemFluid[i].rho()).value();
+        fvc::domainIntegrate(rhoFluid[i]).value();
 
     const dictionary& pimpleDict = 
         fluidRegions[i].solutionDict().subDict("PIMPLE");
     
     pimpleDict.readIfPresent("frozenFlow", frozenFlowFluid[i]);
-    
+    // set correctPhi boolean here itself
+    correctPhiFluid.set(i,pimpleDict.getOrDefault("correctPhi",fluidRegions[i].dynamic()));
+        
+
 
     // create AlphaFluxes
     IOobject alphaPhi10Header
@@ -469,7 +473,22 @@ forAll(fluidRegions, i)
         dimensionedScalar(phiFluid[i].dimensions(),Zero)
       )
     );
-
+    kappaEffFluid.set
+    (
+      i,
+      new volScalarField
+      (
+        IOobject
+        (
+          "kappaEff",
+          runTime.timeName(),
+          fluidRegions[i],
+          IOobject::NO_READ,
+          IOobject::NO_WRITE
+        ),
+        thermoFluid[i].kappa()
+      )
+    );
 
 
   }

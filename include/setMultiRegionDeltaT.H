@@ -37,11 +37,11 @@ if (adjustTimeStep)
     {
         CoNum = SMALL;
     }
-    if (DiNumFluid == -GREAT)
-    {
-      DiNumFluid = SMALL;
-    } 
-
+    // if (DiNumFluid == -GREAT)
+    // {
+    //   DiNumFluid = SMALL;
+    // } 
+    //
     if (DiNum == -GREAT)
     {
         DiNum = SMALL;
@@ -56,15 +56,8 @@ if (adjustTimeStep)
       min
       (
         maxCo/(CoNum + SMALL),
-        min
-        (
-          maxAlphaCo/(alphaCoNum + SMALL),
-          min
-          (
-            maxAlphaDdt/(ddtAlphaNum + SMALL),
-            maxDiFluid/(DiNumFluid + SMALL)
-          )
-        )
+        maxAlphaCo/(alphaCoNum + SMALL)
+          
       );
 
     scalar maxDeltaTSolid = maxDi/(DiNum + SMALL);

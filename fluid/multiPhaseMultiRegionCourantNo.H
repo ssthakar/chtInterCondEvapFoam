@@ -39,54 +39,30 @@ scalar maxAlphaCo
     runTime.controlDict().get<scalar>("maxAlphaCo")
 );
 
-scalar maxAlphaDdt
-(
-    runTime.controlDict().getOrDefault("maxAlphaDdt", GREAT)
-);
-
-scalar maxDiFluid
-(
-    runTime.controlDict().getOrDefault<scalar>("maxDiFluid", GREAT)
-);
-
 scalar CoNum = -GREAT;
 scalar alphaCoNum = -GREAT;
 //scalar meanAlphaCoNum = -GREAT;
 
-scalar ddtAlphaNum = -GREAT;
-scalar DiNumFluid = -GREAT;
-
 // loop through all fluid regions 
 forAll(fluidRegions, regionI)
 {
-  Field<scalar> CourantNos = multiCourantNo
+  Pair<scalar> CourantNos = multiCourantNoPair
   (
     fluidRegions[regionI],
     runTime,
-    phaseSystemFluid[regionI].phi(), // get phi from phase system
-    phaseSystemFluid[regionI] //phase system itself
+    phiFluid[regionI], // get phi from phase system
+    interfaceFluid[regionI] //phase system itself
   );
   CoNum = max
   (
-      CourantNos[0],
+      CourantNos.first(),
       CoNum
   );
 
   alphaCoNum = max
   (
-      CourantNos[1],
+      CourantNos.second(),
       alphaCoNum
-  );
-  ddtAlphaNum = max
-  (
-    CourantNos[2],
-    ddtAlphaNum
-    
-  );
-  DiNumFluid =max
-  (
-    CourantNos[3],
-    DiNumFluid
   );
 }
 
