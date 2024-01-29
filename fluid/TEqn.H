@@ -7,7 +7,7 @@
 
     rhoCp = rho*cp;
 
-    kappaEff = thermo.kappa() + rho*cp*turbulence.nut()/Prt;
+    kappaEff = thermo.kappa(); //+ rho*cp*turbulence.nut()/Prt;
 
     const surfaceScalarField rhoCpPhi
     (

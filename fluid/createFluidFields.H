@@ -69,7 +69,7 @@ List<scalar> cumulativeContErrFluid(fluidRegions.size());
 PtrList<surfaceScalarField> alphaPhiFluid(fluidRegions.size());
 // MULES compressed flux if needed
 PtrList<surfaceScalarField> alphaPhiUnFluid(fluidRegions.size());
-
+PtrList<IOdictionary> transportPropertiesDictFluid(fluidRegions.size());
 //- populate fluid field pointer lists
 forAll(fluidRegions, i)
 {
@@ -119,8 +119,26 @@ forAll(fluidRegions, i)
             fluidRegions[i]
         )
     );
-
-
+    Info << "reading transportPropertiesDict\n"<< endl;
+    
+    transportPropertiesDictFluid.set
+    (
+      i,
+      new IOdictionary
+      (
+        IOobject
+        (
+          "transportProperties",
+          UFluid[i].time().constant(),
+          UFluid[i].db(),
+          IOobject::MUST_READ,
+          IOobject::NO_WRITE,
+          false
+        )
+      )
+    );
+    // scalar sig(transportPropertiesDictFluid[i].lookup("sigma"));
+    // Info <<" tranportProp "<< sig << endl;
     Info<<"      adding to face flux field phi\n"<<endl;
     phiFluid.set
     (
